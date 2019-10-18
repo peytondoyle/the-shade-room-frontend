@@ -20,3 +20,9 @@
 .App-link {
   color: #09d3ac;
 }
+
+/* Styling header */
+.navbar,
+.navbar-default {
+    background-image: linear-gradient(to bottom,#EE81A8 0,#EE81A8 100%) !important;
+}

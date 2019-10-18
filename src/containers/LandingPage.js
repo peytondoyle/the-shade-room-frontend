@@ -5,10 +5,9 @@ class LandingPage extends React.Component {
 
   render(){
   	return (
-  	  <div>
-      <br></br>
-      <h1>All Bots</h1>
-  		</div>
+
+      null
+
   	);
   }
 
