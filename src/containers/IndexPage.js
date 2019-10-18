@@ -1,4 +1,5 @@
 import React from "react";
+import QueenCard from "../components/QueenCard.js";
 
 class IndexPage extends React.Component {
   //your code here
@@ -7,8 +8,8 @@ class IndexPage extends React.Component {
   	return (
   	  <div>
       <div class="row">
-        <div class="col-3">col-3</div>
-
+        {this.props.sortedQueens.map(queen => <QueenCard
+        queen={queen}/>)}
       </div>
   		</div>
   	);
