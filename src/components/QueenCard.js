@@ -10,9 +10,9 @@ class QueenCard extends React.Component {
       <div class="card">
         <img src={this.props.queen.image} class="card-img-top" alt="..."></img>
         <div class="card-body">
-          <p class="card-text">{this.props.queen.season}</p>
+          <p class="card-text">{this.props.queen.name}</p>
           </div>
-        </div>
+        </div><br></br>
   		</div>
   	);
   }

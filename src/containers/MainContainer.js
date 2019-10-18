@@ -15,27 +15,26 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount(){
+
     fetch(URL)
       .then(res => res.json())
       .then(data => {
+        // debugger
+        data.sort(function(a, b) {return a["name"].localeCompare(b["name"])})
         this.setState({allQueens: data})
-        console.log(this.state.allQueens)
-        debugger
-        let originalQueens = this.state.allQueens
-        let newQueens = [...originalQueens]
-        let sortedQueens = newQueens.sort(this.state.allQueens.name)
-        this.setState({sortedQueens: sortedQueens})
     })
   }
 
-  sortQueens = () => {
-  }
+// sort by season
+// data.sort(function(a, b) {return a["name"] - b["name"]})
+// this.setState({allQueens: data})
 
   render(){
   	return (
       <div>
       <IndexPage
-      sortedQueens={this.state.sortedQueens}/>
+      // sortQueens={this.sortQueens}
+      allQueens={this.state.allQueens}/>
       <ShowPage />
       </div>
     );

@@ -8,7 +8,7 @@ class IndexPage extends React.Component {
   	return (
   	  <div>
       <div class="row">
-        {this.props.sortedQueens.map(queen => <QueenCard
+        {this.props.allQueens.map(queen => <QueenCard
         queen={queen}/>)}
       </div>
   		</div>
