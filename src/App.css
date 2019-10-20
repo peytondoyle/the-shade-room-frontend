@@ -43,6 +43,10 @@
      text-shadow: 1px 0px 20px white;
 }
 
+.navbar-text {
+  margin-right: 30px;
+}
+
 /* Index page */
 .index-header {
   font-family: 'Pacifico', cursive;
@@ -131,4 +135,12 @@ a.dropdown-item:hover {
   object-position: 100% 0;
 }
 
+/* Show page */
+.showpage {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  object-position: 40% 0;
+  border-width: 1px;
+}
 
