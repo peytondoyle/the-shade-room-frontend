@@ -1,3 +1,8 @@
+* {
+  font-family: 'Abril Fatface', cursive;
+  cursor: url(http://ani.cursors-4u.net/symbols/sym-8/sym757.ani), url(http://ani.cursors-4u.net/symbols/sym-8/sym757.png), auto !important;
+}
+
 .App-logo {
   height: 40vmin;
 }
@@ -23,10 +28,79 @@
     background-image: linear-gradient(to bottom,#EE81A8 0,#EE81A8 100%) !important;
 }
 
-/* Index page title */
+.nav-link {
+  color: #ffffff !important;
+  transition: all 0.3s ease-in;
+  text-decoration:none;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+  /* text-shadow: 1px 1px 2px; */
+  -webkit-stroke-width: 5.3px;
+     -webkit-stroke-color: #FFFFFF;
+     -webkit-fill-color: #FFFFFF;
+     text-shadow: 1px 0px 20px white;
+}
+
+/* Index page */
 .index-header {
   font-family: 'Pacifico', cursive;
   font-size: 40px;
+  padding-left: 10px;
+}
+
+#indexpgname {
+  padding: 10px;
+  margin-left: 10px;
+}
+
+#indexbuttongroup {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#indexbuttons {
+  background-color: #EE81A8;
+  border-radius: 5px;
+  border: 0px;
+}
+
+#indexbuttons:hover{
+  background-color: #EE81A8;
+}
+
+#seasonfilter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+#traitfilter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  padding-left: 18px;
+}
+
+#sortfilter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 5px;
+}
+
+#dropdownMenuButton {
+  background-color: #EE81A8;
+  border: 0px;
+}
+
+a.dropdown-item {
+  color: #EE81A8;
+}
+
+a.dropdown-item:hover {
+  background-color: #EE81A8;
+  color: #ffffff;
 }
 
 /* Styling cards */
@@ -35,7 +109,7 @@
   text-align: center;
   font-size: 20px;
   margin-top: 10px;
-  color: #EE81A8;
+  color: #000000;
 }
 
 .season {
@@ -43,6 +117,7 @@
   text-align: center;
   font-size: 16px;
   margin-bottom: 0px;
+  color: #EE81A8;
 }
 
 .card-body {
@@ -55,4 +130,5 @@
   object-fit: cover;
   object-position: 100% 0;
 }
+
 
