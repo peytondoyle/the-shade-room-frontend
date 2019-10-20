@@ -16,10 +16,11 @@ class Header extends React.Component {
           <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">All Queens <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#"
+              onClick={this.props.return2Queens}>All Queens</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sashay Away <span class="sr-only">(current)</span></a>
+            <li class="nav-item active">
+              <a class="nav-link" href="http://google.com">Sashay Away</a>
             </li>
           </ul>
           </span>

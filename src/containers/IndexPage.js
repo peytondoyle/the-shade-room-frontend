@@ -2,14 +2,20 @@ import React from "react";
 import QueenCard from "../components/QueenCard.js";
 
 class IndexPage extends React.Component {
-  //your code here
 
   render(){
   	return (
-  	  <div>
+      <div>
+      <span class="index-header">
+          All Drag Queens
+      </span>
+
       <div class="row">
         {this.props.allQueens.map(queen => <QueenCard
-        queen={queen}/>)}
+        queen={queen}
+        seeMore={this.props.seeMore}
+        moreInfo={this.props.moreInfo}
+        return2Queens={this.props.return2Queens}/>)}
       </div>
   		</div>
   	);
