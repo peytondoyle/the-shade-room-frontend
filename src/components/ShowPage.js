@@ -17,7 +17,7 @@ class ShowPage extends React.Component {
     <h1>{this.props.selectedQueen.name}</h1>
     <h3>Season {this.props.selectedQueen.season}</h3>
     <p>"{this.props.selectedQueen.quote}"</p>
-    <img src={this.props.selectedQueen.image} class="showpage"></img>
+    <img src={this.props.selectedQueen.image} class="showpage"></img><br></br><br></br><br></br><br></br><br></br><br></br>
     </div>
     <div class="col" id="moreinfo">
       <h3>Winner?</h3>
@@ -30,7 +30,7 @@ class ShowPage extends React.Component {
         })()}
       </p>
       <h3>Place finished?</h3>
-        <p>{this.Capitalize(this.props.selectedQueen.place)} out of {}</p>
+        <p>{this.Capitalize(this.props.selectedQueen.place)}.</p>
       <h3>Miss Congeniality?</h3>
       <p>
         {(() => {
