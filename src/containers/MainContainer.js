@@ -12,7 +12,8 @@ class MainContainer extends React.Component {
     this.state={
       allQueens: [],
       seeMore: false,
-      selectedQueen: null
+      selectedQueen: null,
+      value: 0
     }
   }
 
@@ -33,6 +34,10 @@ class MainContainer extends React.Component {
     this.setState({seeMore: false, selectedQueen: queen})
   }
 
+  starChange = (value) => {
+    this.setState({value: value})
+  }
+
 // sort by season
 // data.sort(function(a, b) {return a["name"] - b["name"]})
 // this.setState({allQueens: data})
@@ -51,7 +56,9 @@ class MainContainer extends React.Component {
       /> :
       <ShowPage
       allQueens={this.state.allQueens}
-      selectedQueen={this.state.selectedQueen}/>}
+      selectedQueen={this.state.selectedQueen}
+      value={this.state.value}
+      starChange={this.starChange}/>}
       </div>
     );
 }

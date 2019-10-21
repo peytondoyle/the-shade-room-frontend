@@ -22,6 +22,7 @@
   color: #09d3ac;
 }
 
+
 /* Styling header */
 .navbar,
 .navbar-default {
@@ -43,8 +44,8 @@
      text-shadow: 1px 0px 20px white;
 }
 
-.navbar-text {
-  margin-right: 30px;
+.navbar-collapse.collapse {
+  padding-left: 1585px;
 }
 
 /* Index page */
@@ -144,8 +145,8 @@ a.dropdown-item:hover {
   border-width: 1px;
 }
 
-#stats {
-  background: #07a497;
+#moreinfo {
   text-align: center;
+  padding-top: 140px;
 }
 
