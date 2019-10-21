@@ -7,7 +7,7 @@ class NewUserForm extends React.Component {
     return (
         <div>
           <input ref='name' placeholder='Enter the name of the item' />
-          <button onClick={this.props.handleFormSubmit}>Submit</button>
+          <button onClick={this.props.handleUserFormSubmit}>Submit</button>
         </div>
         )}};
 

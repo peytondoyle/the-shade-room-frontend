@@ -19,7 +19,7 @@ class MainContainer extends React.Component {
     }
   }
 
-  handleFormSubmit = (event) => {
+  handleUserFormSubmit = (event) => {
     let name = event.target.parentElement.firstElementChild.value
     let body = JSON.stringify({user: {name: name} })
     fetch('http://localhost:3000/users', {
@@ -66,7 +66,7 @@ class MainContainer extends React.Component {
       <div>
       <LandingPage
       allUsers={this.state.allUsers}
-      handleFormSubmit={this.handleFormSubmit}/>
+      handleUserFormSubmit={this.handleUserFormSubmit}/>
       <Header
       return2Queens={this.return2Queens}/>
       {this.state.seeMore == false ?

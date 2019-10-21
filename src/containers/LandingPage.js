@@ -8,7 +8,7 @@ class LandingPage extends React.Component {
   	return (
       <div>
         <NewUserForm
-        handleFormSubmit={this.props.handleFormSubmit}/>
+        handleUserFormSubmit={this.props.handleUserFormSubmit}/>
       </div>
   	);
   }

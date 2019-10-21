@@ -30,7 +30,7 @@ class ShowPage extends React.Component {
         })()}
       </p>
       <h3>Place finished?</h3>
-        <p>{this.Capitalize(this.props.selectedQueen.place)}.</p>
+        <p>{this.Capitalize(this.props.selectedQueen.place)} out of {}</p>
       <h3>Miss Congeniality?</h3>
       <p>
         {(() => {
