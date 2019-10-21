@@ -144,3 +144,8 @@ a.dropdown-item:hover {
   border-width: 1px;
 }
 
+#stats {
+  background: #07a497;
+  text-align: center;
+}
+
