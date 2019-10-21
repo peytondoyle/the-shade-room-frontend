@@ -2,20 +2,39 @@ import React from "react";
 import IndexPage from "./IndexPage.js";
 import ShowPage from "../components/ShowPage.js";
 import Header from "../components/Header.js"
+import LandingPage from "./LandingPage.js";
 
 let URL = "http://localhost:3000/dragqueens"
 
 class MainContainer extends React.Component {
 
-  constructor(){
+  constructor(props){
     super()
     this.state={
       allQueens: [],
       seeMore: false,
       selectedQueen: null,
-      value: 0
+      value: 0,
+      allUsers: []
     }
   }
+
+  handleFormSubmit = (event) => {
+    let name = event.target.parentElement.firstElementChild.value
+    let body = JSON.stringify({user: {name: name} })
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'},
+      body: body,})
+    .then((response) => {return response.json()})
+    .then((user) => {
+      this.addNewUser(user)})}
+
+  addNewUser = (user) => {
+   this.setState({
+     allUsers: this.state.allUsers.concat(user)
+   })}
 
   componentDidMount(){
     fetch(URL)
@@ -45,6 +64,9 @@ class MainContainer extends React.Component {
   render(){
   	return (
       <div>
+      <LandingPage
+      allUsers={this.state.allUsers}
+      handleFormSubmit={this.handleFormSubmit}/>
       <Header
       return2Queens={this.return2Queens}/>
       {this.state.seeMore == false ?

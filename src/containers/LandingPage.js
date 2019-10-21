@@ -1,4 +1,5 @@
 import React from "react";
+import NewUserForm from "../components/NewUserForm.js"
 
 class LandingPage extends React.Component {
   //your code here
@@ -6,13 +7,8 @@ class LandingPage extends React.Component {
   render(){
   	return (
       <div>
-        <form>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <NewUserForm
+        handleFormSubmit={this.props.handleFormSubmit}/>
       </div>
   	);
   }
