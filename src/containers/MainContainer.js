@@ -61,7 +61,7 @@ class MainContainer extends React.Component {
       allRatings: data,
       allUsers: this.state.allUsers.concat(user),
       currentUserId: user["id"]})
-      console.log(data)
+      // console.log(data)
     })
   }
 

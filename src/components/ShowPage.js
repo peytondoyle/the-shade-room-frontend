@@ -7,7 +7,7 @@ class ShowPage extends React.Component {
     super()
     this.state={
       yourRating: null
-  }
+  }}
 
   componentDidMount(){
     this.settingStars()
@@ -18,34 +18,36 @@ class ShowPage extends React.Component {
   }
 
   settingStars = () => {
-    let ratings = this.state.allRatings
-    let queen = this.state.selectedQueen["id"]
-    if (this.state.selectedQueen) {
+    let ratings = this.props.allRatings
+    let queen = this.props.selectedQueen["id"]
+    if (this.props.selectedQueen) {
       let filteredRatings = ratings.filter(rating => rating["dragqueen_id"] === queen)
-      // debugger
-      let lastRating = filteredRatings.slice(-1)[0]["rating"]
+      let rating = filteredRatings[0]
+      // let stars = filteredRatings[0].rating
+      this.setState({yourRating: rating})
 
-      // this.setState({yourValue: lastRating})
     }
   }
 
   yourStarChange = (value) => {
-    // debugger
-    this.setState({yourValue: value})
+    this.setState({yourStars: value})
     this.handleStarChange(value)
   }
 
   handleStarChange = (value) => {
     let currentUser = this.props.currentUserId
-    let currentQueen = this.props.selectedQueen["id"]
+    let currentQueen = this.props.selectedQueen.id
+    // let yourRating = this.state.yourRating
     let body = JSON.stringify({rating: value, user_id: currentUser, dragqueen_id: currentQueen})
-    this.state.yourValue ?
-    fetch(`http://localhost:3000/ratings/${currentUser}`, {
+    this.state.yourRating ?
+    fetch(`http://localhost:3000/ratings/${this.state.yourRating.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Accepts': 'application/json'},
-        body: body})
+        'Accept': 'application/json'
+      },
+        body: body
+      })
         .then((response) => {return response.json()})
         .then((rating) => {
           console.log("patch", rating)})
@@ -57,7 +59,8 @@ class ShowPage extends React.Component {
         body: body})
         .then((response) => {return response.json()})
         .then((rating) => {
-          console.log("post", rating)})
+          console.log("post", rating)
+          this.setState({yourRating: rating})})
     }
 
 
@@ -104,7 +107,7 @@ class ShowPage extends React.Component {
       />
       <h4>Average rating: </h4><br></br>
       <BeautyStars
-      value={this.state.yourValue}
+      value={this.state.yourRating && this.state.yourRating.rating || this.state.yourStars}
       onChange={this.yourStarChange}
       // onChange={this.props.handleStarChange}
       />
