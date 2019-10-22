@@ -3,6 +3,13 @@ import IndexPage from "./IndexPage.js";
 import ShowPage from "../components/ShowPage.js";
 import Header from "../components/Header.js"
 import LandingPage from "./LandingPage.js";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 
 let DRAGURL = "http://localhost:3000/dragqueens"
 let RATINGSURL = "http://localhost:3000/ratings"
@@ -15,7 +22,7 @@ class MainContainer extends React.Component {
       allQueens: [],
       seeMore: false,
       selectedQueen: null,
-      yourValue: 0,
+      // yourValue: 0,
       avgValue: 4,
       allUsers: [],
       currentUserId: 0,
@@ -35,22 +42,6 @@ class MainContainer extends React.Component {
     .then((user) => {
       this.addNewUser(user)})}
 
-  handleStarChange = (event) => {
-    console.log(this.state.yourValue)
-    // let currentStar = this.state.yourValue
-    // let currentUser = this.state.currentUserId
-    // let currentQueen = this.state.selectedQueen["id"]
-    // let body = JSON.stringify({rating: {rating: event, user_id: currentUser, dragqueen_id: currentQueen} })
-    // fetch('http://localhost:3000/ratings', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'},
-    //   body: body,})
-    // .then((response) => {return response.json()})
-    // .then((rating) => {
-    //   console.log(rating)})
-    }
-
   addNewUser = (user) => {
     this.setState({
     allUsers: this.state.allUsers.concat(user),
@@ -60,6 +51,20 @@ class MainContainer extends React.Component {
     this.setState({yourValue: value})
     this.handleStarChange(value)
   }
+
+  handleStarChange = (value) => {
+    let currentUser = this.state.currentUserId
+    let currentQueen = this.state.selectedQueen["id"]
+    let body = JSON.stringify({rating: {rating: value, user_id: currentUser, dragqueen_id: currentQueen} })
+    fetch('http://localhost:3000/ratings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'},
+      body: body,})
+    .then((response) => {return response.json()})
+    .then((rating) => {
+      console.log(rating)})
+    }
 
 // FETCHING QUEENS
 // FETCHING RATINGS
@@ -125,30 +130,76 @@ class MainContainer extends React.Component {
 
   render(){
   	return (
+      <Router>
       <div>
-      <LandingPage
-      allUsers={this.state.allUsers}
-      handleUserFormSubmit={this.handleUserFormSubmit}/>
-      <Header
-      return2Queens={this.return2Queens}/>
-      {this.state.seeMore == false ?
-      <IndexPage
-      allQueens={this.state.allQueens}
-      seeMore={this.state.seeMore}
-      moreInfo={this.moreInfo}
-      return2Queens={this.return2Queens}
-      /> :
-      <ShowPage
-      allQueens={this.state.allQueens}
-      selectedQueen={this.state.selectedQueen}
-      yourValue={this.state.yourValue}
-      avgValue={this.state.avgValue}
-      avgStarChange={this.avgStarChange}
-      yourStarChange={this.yourStarChange}
-      allRatings={this.state.allRatings}
-      handleStarChange={this.handleStarChange}/>}
+        <Switch>
+          <Route exact path="/" render={() => <Redirect to="/login" />} />
+          
+          <Route exact path="/login" render={() => {
+            return this.state.currentUserId === 0 ?
+            <LandingPage
+            currentUserId={this.state.currentUserId}
+            allUsers={this.state.allUsers}
+            handleUserFormSubmit={this.handleUserFormSubmit}/> :
+            <Redirect to="/allqueens" />}
+          } />
+
+          <Route path="/allqueens" render={() => {
+            return this.state.currentUserId !== 0 ?
+              <React.Fragment>
+                <Header
+                return2Queens={this.return2Queens}/>
+                {
+                  this.state.seeMore == false ?
+                  <IndexPage
+                  allQueens={this.state.allQueens}
+                  seeMore={this.state.seeMore}
+                  moreInfo={this.moreInfo}
+                  return2Queens={this.return2Queens}
+                  /> :
+                  <ShowPage
+                  allQueens={this.state.allQueens}
+                  selectedQueen={this.state.selectedQueen}
+                  yourValue={this.state.yourValue}
+                  avgValue={this.state.avgValue}
+                  avgStarChange={this.avgStarChange}
+                  yourStarChange={this.yourStarChange}
+                  allRatings={this.state.allRatings}
+                  handleStarChange={this.handleStarChange}
+                  />
+                }
+              </React.Fragment>
+              :
+            <Redirect to="/login" />}}/>
+        </Switch>
       </div>
+    </Router>
     );
 }
 }
 export default MainContainer;
+
+// WORKING RETURN
+// <div>
+// <LandingPage
+// allUsers={this.state.allUsers}
+// handleUserFormSubmit={this.handleUserFormSubmit}/>
+// <Header
+// return2Queens={this.return2Queens}/>
+// {this.state.seeMore == false ?
+// <IndexPage
+// allQueens={this.state.allQueens}
+// seeMore={this.state.seeMore}
+// moreInfo={this.moreInfo}
+// return2Queens={this.return2Queens}
+// /> :
+// <ShowPage
+// allQueens={this.state.allQueens}
+// selectedQueen={this.state.selectedQueen}
+// yourValue={this.state.yourValue}
+// avgValue={this.state.avgValue}
+// avgStarChange={this.avgStarChange}
+// yourStarChange={this.yourStarChange}
+// allRatings={this.state.allRatings}
+// handleStarChange={this.handleStarChange}/>}
+// </div>
