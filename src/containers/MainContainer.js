@@ -4,7 +4,8 @@ import ShowPage from "../components/ShowPage.js";
 import Header from "../components/Header.js"
 import LandingPage from "./LandingPage.js";
 
-let URL = "http://localhost:3000/dragqueens"
+let DRAGURL = "http://localhost:3000/dragqueens"
+let RATINGSURL = "http://localhost:3000/ratings"
 
 class MainContainer extends React.Component {
 
@@ -14,8 +15,11 @@ class MainContainer extends React.Component {
       allQueens: [],
       seeMore: false,
       selectedQueen: null,
-      value: 0,
-      allUsers: []
+      yourValue: 0,
+      avgValue: 4,
+      allUsers: [],
+      currentUserId: 0,
+      allRatings: []
     }
   }
 
@@ -31,19 +35,81 @@ class MainContainer extends React.Component {
     .then((user) => {
       this.addNewUser(user)})}
 
-  addNewUser = (user) => {
-   this.setState({
-     allUsers: this.state.allUsers.concat(user)
-   })}
+  handleStarChange = (event) => {
+    console.log(this.state.yourValue)
+    // let currentStar = this.state.yourValue
+    // let currentUser = this.state.currentUserId
+    // let currentQueen = this.state.selectedQueen["id"]
+    // let body = JSON.stringify({rating: {rating: event, user_id: currentUser, dragqueen_id: currentQueen} })
+    // fetch('http://localhost:3000/ratings', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'},
+    //   body: body,})
+    // .then((response) => {return response.json()})
+    // .then((rating) => {
+    //   console.log(rating)})
+    }
 
+  addNewUser = (user) => {
+    this.setState({
+    allUsers: this.state.allUsers.concat(user),
+    currentUserId: user["id"]})}
+
+  yourStarChange = (value) => {
+    this.setState({yourValue: value})
+    this.handleStarChange(value)
+  }
+
+// FETCHING QUEENS
+// FETCHING RATINGS
   componentDidMount(){
-    fetch(URL)
+    fetch(DRAGURL)
       .then(res => res.json())
       .then(data => {
         data.sort(function(a, b) {return a["name"].localeCompare(b["name"])})
         this.setState({allQueens: data})
     })
+
+    fetch(RATINGSURL)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({allRatings: data})
+        console.log(data)
+    })
   }
+
+// THIS IS NOT WORKING!
+  // averageRating = () => {
+  //   let allRatings = this.state.allRatings
+  //   let selectedQueenId = this.state.selectedQueen.id
+  //   let queenRatings = allRatings.map(queen => queen.id === selectedQueenId)
+  //   debugger
+  //   this.setState({allRatings: queenRatings})
+  // }
+
+  // correctQueen = (queen) {
+  //   return
+  // }
+
+  // sort by season
+  // data.sort(function(a, b) {return a["name"] - b["name"]})
+  // this.setState({allQueens: data})
+
+//   const inventory = [
+//   {name: 'apples', quantity: 2},
+//   {name: 'bananas', quantity: 0},
+//   {name: 'cherries', quantity: 5}
+// ];
+//
+// function isCherries(fruit) {
+//   return fruit.name === 'cherries';
+// }
+//
+// console.log(inventory.find(isCherries));
+// // { name: 'cherries', quantity: 5 }
+
+
 
   moreInfo = (queen) => {
   this.setState({seeMore: true, selectedQueen: queen})
@@ -53,13 +119,9 @@ class MainContainer extends React.Component {
     this.setState({seeMore: false, selectedQueen: queen})
   }
 
-  starChange = (value) => {
-    this.setState({value: value})
-  }
-
-// sort by season
-// data.sort(function(a, b) {return a["name"] - b["name"]})
-// this.setState({allQueens: data})
+  // avgStarChange = (value) => {
+  //   this.setState({averageValue: value})
+  // }
 
   render(){
   	return (
@@ -79,8 +141,12 @@ class MainContainer extends React.Component {
       <ShowPage
       allQueens={this.state.allQueens}
       selectedQueen={this.state.selectedQueen}
-      value={this.state.value}
-      starChange={this.starChange}/>}
+      yourValue={this.state.yourValue}
+      avgValue={this.state.avgValue}
+      avgStarChange={this.avgStarChange}
+      yourStarChange={this.yourStarChange}
+      allRatings={this.state.allRatings}
+      handleStarChange={this.handleStarChange}/>}
       </div>
     );
 }

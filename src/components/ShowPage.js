@@ -45,21 +45,19 @@ class ShowPage extends React.Component {
     <div class="col" id="moreinfo">
       <h3>How is she though?</h3><br></br>
       <BeautyStars
-      value={this.props.value}
-      onChange={this.props.starChange}
+      value={this.props.avgValue}
+      // onChange={this.props.handleStarChange}
       />
-      <h4>Average rating: {this.props.value}</h4><br></br>
+      <h4>Average rating: </h4><br></br>
       <BeautyStars
-      value={this.props.value}
-      onChange={this.props.starChange}
+      value={this.props.yourValue}
+      onChange={this.props.yourStarChange}
+      // onChange={this.props.handleStarChange}
       />
       <h4>Your rating</h4>
       </div>
     </div>
 </div>
-
-
-
 
   	);
   }
