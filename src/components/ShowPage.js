@@ -11,6 +11,7 @@ class ShowPage extends React.Component {
 
   componentDidMount(){
     this.settingStars()
+    this.pullingQueenRatings()
   }
 
   Capitalize(str){
@@ -30,7 +31,7 @@ class ShowPage extends React.Component {
   }
 
   yourStarChange = (value) => {
-    this.setState({yourStars: value})
+    // this.setState({yourStars: value})
     this.handleStarChange(value)
   }
 
@@ -40,8 +41,8 @@ class ShowPage extends React.Component {
     // let yourRating = this.state.yourRating
     let body = JSON.stringify({rating: value, user_id: currentUser, dragqueen_id: currentQueen})
     this.state.yourRating ?
-    fetch(`http://localhost:3000/ratings/${this.state.yourRating.id}`, {
-      method: 'PATCH',
+    fetch(`http://localhost:3000/ratings/${this.state.yourRating.id}/edit`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -50,7 +51,8 @@ class ShowPage extends React.Component {
       })
         .then((response) => {return response.json()})
         .then((rating) => {
-          console.log("patch", rating)})
+          console.log("patch", rating)
+          this.setState({yourRating: rating})})
     :
     fetch('http://localhost:3000/ratings', {
       method: 'POST',
@@ -63,7 +65,19 @@ class ShowPage extends React.Component {
           this.setState({yourRating: rating})})
     }
 
+    addEmUp = (data) => {
+      return data.reduce(function(accum, currentVal){
+        return accum + currentVal.rating}, 0)
+    }
 
+    pullingQueenRatings = () => {
+      fetch(`http://localhost:3000/dragqueens/${this.props.selectedQueen.id}/ratings`)
+        .then(res => res.json())
+        .then(data => {
+          let preDiv = this.addEmUp(data)
+          let sum = preDiv / 5
+          this.setState({avgValue: sum})
+        })}
 
   render(){
   	return (
@@ -102,14 +116,13 @@ class ShowPage extends React.Component {
     <div class="col" id="moreinfo">
       <h3>How is she though?</h3><br></br>
       <BeautyStars
-      value={this.props.avgValue}
-      // onChange={this.props.handleStarChange}
+      value={this.state.avgValue}
       />
-      <h4>Average rating: </h4><br></br>
+      <h4>Average rating: {this.state.avgValue}</h4><br></br>
       <BeautyStars
-      value={this.state.yourRating && this.state.yourRating.rating || this.state.yourStars}
+      value={this.state.yourRating && this.state.yourRating.rating}
+      // value={!!this.state.yourRating ?  0 : this.state.yourRating.rating}
       onChange={this.yourStarChange}
-      // onChange={this.props.handleStarChange}
       />
       <h4>Your rating</h4>
       </div>
