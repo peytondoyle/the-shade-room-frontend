@@ -16,13 +16,13 @@ let RATINGSURL = "http://localhost:3000/ratings"
 
 class MainContainer extends React.Component {
 
-  constructor(props){
+  constructor(){
     super()
     this.state={
       allQueens: [],
       seeMore: false,
       selectedQueen: null,
-      // yourValue: 0,
+      yourValue: 0,
       avgValue: 4,
       allUsers: [],
       currentUserId: 0,
@@ -134,7 +134,7 @@ class MainContainer extends React.Component {
       <div>
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/login" />} />
-          
+
           <Route exact path="/login" render={() => {
             return this.state.currentUserId === 0 ?
             <LandingPage

@@ -45,7 +45,12 @@
 }
 
 .navbar-collapse.collapse {
-  padding-left: 1100px;
+  padding-left: 100px;
+}
+
+#navbarimg {
+  height: 100px;
+  padding: 0px;
 }
 
 /* Index page */
@@ -53,6 +58,13 @@
   font-family: 'Pacifico', cursive;
   font-size: 40px;
   padding-left: 10px;
+}
+
+.index-header-navbar {
+  font-family: 'Pacifico', cursive;
+  font-size: 40px;
+  padding-left: 10px;
+  color: #ffffff;
 }
 
 #indexpgname {
