@@ -2,9 +2,63 @@ import React, { Component } from 'react';
 import BeautyStars from 'beauty-stars';
 
 class ShowPage extends React.Component {
-  Capitalize(str){
-    return str.charAt(0).toUpperCase() + str.slice(1);
+
+  constructor(){
+    super()
+    this.state={
+      yourRating: null
   }
+
+  componentDidMount(){
+    this.settingStars()
+  }
+
+  Capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
+  settingStars = () => {
+    let ratings = this.state.allRatings
+    let queen = this.state.selectedQueen["id"]
+    if (this.state.selectedQueen) {
+      let filteredRatings = ratings.filter(rating => rating["dragqueen_id"] === queen)
+      // debugger
+      let lastRating = filteredRatings.slice(-1)[0]["rating"]
+
+      // this.setState({yourValue: lastRating})
+    }
+  }
+
+  yourStarChange = (value) => {
+    // debugger
+    this.setState({yourValue: value})
+    this.handleStarChange(value)
+  }
+
+  handleStarChange = (value) => {
+    let currentUser = this.props.currentUserId
+    let currentQueen = this.props.selectedQueen["id"]
+    let body = JSON.stringify({rating: value, user_id: currentUser, dragqueen_id: currentQueen})
+    this.state.yourValue ?
+    fetch(`http://localhost:3000/ratings/${currentUser}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accepts': 'application/json'},
+        body: body})
+        .then((response) => {return response.json()})
+        .then((rating) => {
+          console.log("patch", rating)})
+    :
+    fetch('http://localhost:3000/ratings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'},
+        body: body})
+        .then((response) => {return response.json()})
+        .then((rating) => {
+          console.log("post", rating)})
+    }
 
 
 
@@ -50,8 +104,8 @@ class ShowPage extends React.Component {
       />
       <h4>Average rating: </h4><br></br>
       <BeautyStars
-      value={this.props.yourValue}
-      onChange={this.props.yourStarChange}
+      value={this.state.yourValue}
+      onChange={this.yourStarChange}
       // onChange={this.props.handleStarChange}
       />
       <h4>Your rating</h4>

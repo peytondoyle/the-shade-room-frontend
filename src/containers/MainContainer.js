@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 let DRAGURL = "http://localhost:3000/dragqueens"
-let RATINGSURL = "http://localhost:3000/ratings"
+
 
 class MainContainer extends React.Component {
 
@@ -22,12 +22,23 @@ class MainContainer extends React.Component {
       allQueens: [],
       seeMore: false,
       selectedQueen: null,
-      yourValue: 0,
+      // yourValue: 0,
       avgValue: 4,
       allUsers: [],
       currentUserId: 0,
       allRatings: []
     }
+  }
+
+  // FETCHING QUEENS
+  // FETCHING RATINGS
+  componentDidMount(){
+    fetch(DRAGURL)
+    .then(res => res.json())
+    .then(data => {
+      data.sort(function(a, b) {return a["name"].localeCompare(b["name"])})
+      this.setState({allQueens: data})
+    })
   }
 
   handleUserFormSubmit = (event) => {
@@ -43,46 +54,19 @@ class MainContainer extends React.Component {
       this.addNewUser(user)})}
 
   addNewUser = (user) => {
-    this.setState({
-    allUsers: this.state.allUsers.concat(user),
-    currentUserId: user["id"]})}
-
-  yourStarChange = (value) => {
-    this.setState({yourValue: value})
-    this.handleStarChange(value)
-  }
-
-  handleStarChange = (value) => {
-    let currentUser = this.state.currentUserId
-    let currentQueen = this.state.selectedQueen["id"]
-    let body = JSON.stringify({rating: {rating: value, user_id: currentUser, dragqueen_id: currentQueen} })
-    fetch('http://localhost:3000/ratings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'},
-      body: body,})
-    .then((response) => {return response.json()})
-    .then((rating) => {
-      console.log(rating)})
-    }
-
-// FETCHING QUEENS
-// FETCHING RATINGS
-  componentDidMount(){
-    fetch(DRAGURL)
-      .then(res => res.json())
-      .then(data => {
-        data.sort(function(a, b) {return a["name"].localeCompare(b["name"])})
-        this.setState({allQueens: data})
-    })
-
-    fetch(RATINGSURL)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({allRatings: data})
-        console.log(data)
+    fetch(`http://localhost:3000/users/${user["id"]}/ratings`)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+      allRatings: data,
+      allUsers: this.state.allUsers.concat(user),
+      currentUserId: user["id"]})
+      console.log(data)
     })
   }
+
+
+
 
 // THIS IS NOT WORKING!
   // averageRating = () => {
@@ -160,12 +144,13 @@ class MainContainer extends React.Component {
                   <ShowPage
                   allQueens={this.state.allQueens}
                   selectedQueen={this.state.selectedQueen}
-                  yourValue={this.state.yourValue}
-                  avgValue={this.state.avgValue}
-                  avgStarChange={this.avgStarChange}
-                  yourStarChange={this.yourStarChange}
                   allRatings={this.state.allRatings}
-                  handleStarChange={this.handleStarChange}
+                  currentUserId={this.state.currentUserId}
+                  // avgValue={this.state.avgValue}
+                  // avgStarChange={this.avgStarChange}
+                  // yourStarChange={this.yourStarChange}
+                  // handleStarChange={this.handleStarChange}
+                  // settingStars={this.settingStars()}
                   />
                 }
               </React.Fragment>
