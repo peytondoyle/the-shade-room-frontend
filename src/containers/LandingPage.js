@@ -8,7 +8,8 @@ class LandingPage extends React.Component {
   	return (
       <div class="landingpage">
         <center>
-        <h7>The Shade Room</h7><br></br>
+        <h7>The Shade Room</h7>
+        <h6>Spilling the Tea on RuPaul's Beloved Queens</h6><br></br>
         <img src="https://i.ibb.co/1GR388q/test.png" class="landingpageimg"></img>
         </center>
         <NewUserForm

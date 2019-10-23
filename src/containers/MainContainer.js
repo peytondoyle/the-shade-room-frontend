@@ -42,18 +42,19 @@ class MainContainer extends React.Component {
     })
   }
 
-  // filterBySeason = (e) => {
-  //   let allQueens = this.state.allqueens
-  //   let seasonFilter = this.state.seasonFilter
-  //   letevent.target.text
-  //   if (seasonFilter == 1) {
-  //     console.log("I wanna see S1 queens!")
-  //   } else if (seasonFilter == 2) {
-  //     console.log("I wanna see S2 queens!")
-  //   } else if (seasonFilter == 3) {
-  //     console.log("I wanna see S3 queens!")
-  //   }
-  // }
+  filterBySeason = (e) => {
+    let allQueens = this.state.allqueens
+    let seasonFilter = this.state.seasonFilter
+    let select = e.target.text
+    // debugger
+    if (select == "Season 1") {
+      console.log("I wanna see S1 queens!")
+    } else if (seasonFilter == 2) {
+      console.log("I wanna see S2 queens!")
+    } else if (seasonFilter == 3) {
+      console.log("I wanna see S3 queens!")
+    }
+  }
 
   handleUserFormSubmit = (event) => {
     let name = event.target.parentElement.firstElementChild.value
@@ -88,7 +89,7 @@ class MainContainer extends React.Component {
   }
 
   sashayAway = () => {
-    this.setState({currentUserId: 0})
+    this.setState({currentUserId: 0, seeMore: false})
   }
 
   render(){
