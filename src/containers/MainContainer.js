@@ -41,6 +41,11 @@ class MainContainer extends React.Component {
     })
   }
 
+  filterBySeason = () => {
+    let allQueens = this.state.allqueens
+
+  }
+
   handleUserFormSubmit = (event) => {
     let name = event.target.parentElement.firstElementChild.value
     let body = JSON.stringify({user: {name: name} })
@@ -65,41 +70,6 @@ class MainContainer extends React.Component {
     })
   }
 
-
-
-
-// THIS IS NOT WORKING!
-  // averageRating = () => {
-  //   let allRatings = this.state.allRatings
-  //   let selectedQueenId = this.state.selectedQueen.id
-  //   let queenRatings = allRatings.map(queen => queen.id === selectedQueenId)
-  //   debugger
-  //   this.setState({allRatings: queenRatings})
-  // }
-
-  // correctQueen = (queen) {
-  //   return
-  // }
-
-  // sort by season
-  // data.sort(function(a, b) {return a["name"] - b["name"]})
-  // this.setState({allQueens: data})
-
-//   const inventory = [
-//   {name: 'apples', quantity: 2},
-//   {name: 'bananas', quantity: 0},
-//   {name: 'cherries', quantity: 5}
-// ];
-//
-// function isCherries(fruit) {
-//   return fruit.name === 'cherries';
-// }
-//
-// console.log(inventory.find(isCherries));
-// // { name: 'cherries', quantity: 5 }
-
-
-
   moreInfo = (queen) => {
   this.setState({seeMore: true, selectedQueen: queen})
   }
@@ -107,10 +77,6 @@ class MainContainer extends React.Component {
   return2Queens = (queen) => {
     this.setState({seeMore: false, selectedQueen: queen})
   }
-
-  // avgStarChange = (value) => {
-  //   this.setState({averageValue: value})
-  // }
 
   render(){
   	return (

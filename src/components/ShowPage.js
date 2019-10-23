@@ -76,6 +76,7 @@ class ShowPage extends React.Component {
         .then(data => {
           let preDiv = this.addEmUp(data)
           let sum = preDiv / 5
+          sum >= 5 ? this.setState({avgValue: 5}) :
           this.setState({avgValue: sum})
         })}
 
