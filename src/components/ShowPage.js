@@ -6,7 +6,7 @@ class ShowPage extends React.Component {
   constructor(){
     super()
     this.state={
-      yourRating: null
+      yourRating: {}
   }}
 
   componentDidMount(){
@@ -121,7 +121,7 @@ class ShowPage extends React.Component {
       />
       <h4>Average rating: {this.state.avgValue}</h4><br></br>
       <BeautyStars
-      value={this.state.yourRating && this.state.yourRating.rating}
+      value={this.state.yourRating.rating}
       // value={!!this.state.yourRating ?  0 : this.state.yourRating.rating}
       onChange={this.yourStarChange}
       />

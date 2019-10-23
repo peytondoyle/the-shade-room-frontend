@@ -6,8 +6,12 @@ class NewUserForm extends React.Component {
   render() {
     return (
         <div>
-          <input ref='name' placeholder='Enter the name of the item' />
-          <button onClick={this.props.handleUserFormSubmit}>Submit</button>
+          <center>
+          <input ref='name' size="40" placeholder='please enter your username' />
+          <br></br>
+          <button type="button" class="btn-sample"
+          onClick={this.props.handleUserFormSubmit}>Submit</button>
+          </center>
         </div>
         )}};
 
