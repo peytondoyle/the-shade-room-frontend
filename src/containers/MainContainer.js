@@ -22,6 +22,7 @@ class MainContainer extends React.Component {
       allQueens: [],
       seeMore: false,
       selectedQueen: null,
+      seasonFilter: 0,
       // yourValue: 0,
       avgValue: 4,
       allUsers: [],
@@ -37,14 +38,22 @@ class MainContainer extends React.Component {
     .then(res => res.json())
     .then(data => {
       data.sort(function(a, b) {return a["name"].localeCompare(b["name"])})
-      this.setState({allQueens: data})
+      this.setState({allQueens: data, seasonFilter: 0})
     })
   }
 
-  filterBySeason = () => {
-    let allQueens = this.state.allqueens
-
-  }
+  // filterBySeason = (e) => {
+  //   let allQueens = this.state.allqueens
+  //   let seasonFilter = this.state.seasonFilter
+  //   letevent.target.text
+  //   if (seasonFilter == 1) {
+  //     console.log("I wanna see S1 queens!")
+  //   } else if (seasonFilter == 2) {
+  //     console.log("I wanna see S2 queens!")
+  //   } else if (seasonFilter == 3) {
+  //     console.log("I wanna see S3 queens!")
+  //   }
+  // }
 
   handleUserFormSubmit = (event) => {
     let name = event.target.parentElement.firstElementChild.value
@@ -78,6 +87,10 @@ class MainContainer extends React.Component {
     this.setState({seeMore: false, selectedQueen: queen})
   }
 
+  sashayAway = () => {
+    this.setState({currentUserId: 0})
+  }
+
   render(){
   	return (
       <Router>
@@ -98,7 +111,9 @@ class MainContainer extends React.Component {
             return this.state.currentUserId !== 0 ?
               <React.Fragment>
                 <Header
-                return2Queens={this.return2Queens}/>
+                return2Queens={this.return2Queens}
+                sashayAway={this.sashayAway}
+                />
                 {
                   this.state.seeMore == false ?
                   <IndexPage
@@ -106,6 +121,8 @@ class MainContainer extends React.Component {
                   seeMore={this.state.seeMore}
                   moreInfo={this.moreInfo}
                   return2Queens={this.return2Queens}
+                  seasonFilter={this.state.seasonFilter}
+                  filterBySeason={this.filterBySeason}
                   /> :
                   <ShowPage
                   allQueens={this.state.allQueens}

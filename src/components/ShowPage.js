@@ -6,28 +6,20 @@ class ShowPage extends React.Component {
   constructor(){
     super()
     this.state={
-      yourRating: {}
+      yourRating: 0
   }}
 
   componentDidMount(){
-    this.settingStars()
-    this.pullingQueenRatings()
-  }
+    fetch(`http://localhost:3000/dragqueens/${this.props.selectedQueen.id}/ratings`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        this.settingYourStars(data)
+        this.pullingQueenRatings(data)
+  })}
 
   Capitalize(str){
     return str.charAt(0).toUpperCase() + str.slice(1)
-  }
-
-  settingStars = () => {
-    let ratings = this.props.allRatings
-    let queen = this.props.selectedQueen["id"]
-    if (this.props.selectedQueen) {
-      let filteredRatings = ratings.filter(rating => rating["dragqueen_id"] === queen)
-      let rating = filteredRatings[0]
-      // let stars = filteredRatings[0].rating
-      this.setState({yourRating: rating})
-
-    }
   }
 
   yourStarChange = (value) => {
@@ -70,15 +62,37 @@ class ShowPage extends React.Component {
         return accum + currentVal.rating}, 0)
     }
 
-    pullingQueenRatings = () => {
-      fetch(`http://localhost:3000/dragqueens/${this.props.selectedQueen.id}/ratings`)
-        .then(res => res.json())
-        .then(data => {
-          let preDiv = this.addEmUp(data)
-          let sum = preDiv / 5
-          sum >= 5 ? this.setState({avgValue: 5}) :
-          this.setState({avgValue: sum})
-        })}
+    pullingQueenRatings = (array) => {
+      let preDiv = this.addEmUp(array)
+      let sum = preDiv / 5
+      this.roundingRatings(sum)
+        }
+
+    settingYourStars = (array) => {
+      // let queen = this.props.selectedQueen["id"]
+      let currentUserId = this.props.currentUserId
+      if (this.props.selectedQueen) {
+        let filteredRatings = array.filter(rating => rating["user_id"] === currentUserId)
+        console.log("setting stars", filteredRatings)
+        let rating = filteredRatings[0]
+        // let stars = filteredRatings[0].rating
+        this.setState({yourRating: rating})
+      }
+    }
+
+    roundingRatings = (sum) => {
+      if (sum >= 5) {
+        this.setState({avgValue: 5})
+      } else if (sum <= 1 && sum > 0) {
+        this.setState({avgValue: 1})
+      } else if (sum = 0) {
+        this.setState({avgValue: 0})
+      } else {
+        this.setState({avgValue: sum})
+      }
+    }
+
+
 
   render(){
   	return (
@@ -88,31 +102,30 @@ class ShowPage extends React.Component {
     <div class="col">
     <h1>{this.props.selectedQueen.name}</h1>
     <h3>Season {this.props.selectedQueen.season}</h3>
-    <p>"{this.props.selectedQueen.quote}"</p>
+    <h4>"{this.props.selectedQueen.quote}"</h4>
     <img src={this.props.selectedQueen.image} class="showpage"></img><br></br><br></br><br></br><br></br><br></br><br></br>
     </div>
     <div class="col" id="moreinfo">
       <h3>Winner?</h3>
-      <p>
+      <h4>
         {(() => {
           switch (this.props.selectedQueen.winner) {
             case false: return "Nope.";
             case true: return "Yes!";
           }
         })()}
-      </p>
+      </h4>
       <h3>Place finished?</h3>
-        <p>{this.Capitalize(this.props.selectedQueen.place)}.</p>
+        <h4>{this.Capitalize(this.props.selectedQueen.place)}.</h4>
       <h3>Miss Congeniality?</h3>
-      <p>
+      <h4>
         {(() => {
           switch (this.props.selectedQueen.misscongeniality) {
             case false: return "Nope.";
             case true: return "Yes!";
           }
         })()}
-      </p>
-      <h3>Spill the tea</h3>
+      </h4>
     </div>
     <div class="col" id="moreinfo">
       <h3>How is she though?</h3><br></br>
@@ -121,8 +134,7 @@ class ShowPage extends React.Component {
       />
       <h4>Average rating: {this.state.avgValue}</h4><br></br>
       <BeautyStars
-      value={this.state.yourRating.rating}
-      // value={!!this.state.yourRating ?  0 : this.state.yourRating.rating}
+      value={this.state.yourRating && this.state.yourRating.rating}
       onChange={this.yourStarChange}
       />
       <h4>Your rating</h4>

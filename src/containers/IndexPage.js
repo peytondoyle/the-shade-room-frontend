@@ -27,7 +27,8 @@ class IndexPage extends React.Component {
               Filter by Season
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Season 1</a>
+                <a class="dropdown-item"
+                onClick={this.props.filterBySeason}>Season 1</a>
                 <a class="dropdown-item" href="#">Season 2</a>
                 <a class="dropdown-item" href="#">Season 3</a>
                 <a class="dropdown-item" href="#">Season 4</a>

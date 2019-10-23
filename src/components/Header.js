@@ -22,7 +22,8 @@ class Header extends React.Component {
               onClick={this.props.return2Queens}>All Queens</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="http://google.com">Sashay Away</a>
+              <a class="nav-link"
+              onClick={this.props.sashayAway}>Sashay Away</a>
             </li>
           </ul>
           </span>
