@@ -67,7 +67,8 @@ class ShowPage extends React.Component {
       let preDiv = this.addEmUp(array)
       let arrayLength = array.length
       let sum = preDiv / arrayLength
-      this.roundingRatings(sum)
+      let dirtyDecimal = Math.round(sum * 100) / 100
+      this.roundingRatings(dirtyDecimal)
         }
 
     settingYourStars = (array) => {
@@ -134,7 +135,7 @@ class ShowPage extends React.Component {
       <BeautyStars
       value={this.state.avgValue}
       />
-      <h4>Average rating</h4><br></br>
+      <h4>Average rating: {this.state.avgValue ? this.state.avgValue : "0"}</h4><br></br>
       <BeautyStars
       value={this.state.yourRating && this.state.yourRating.rating}
       onChange={this.yourStarChange}
