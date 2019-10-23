@@ -6,7 +6,8 @@ class ShowPage extends React.Component {
   constructor(){
     super()
     this.state={
-      yourRating: 0
+      yourRating: 0,
+      avgValue: 0
   }}
 
   componentDidMount(){
@@ -14,8 +15,8 @@ class ShowPage extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        this.settingYourStars(data)
         this.pullingQueenRatings(data)
+        this.settingYourStars(data)
   })}
 
   Capitalize(str){
@@ -85,7 +86,7 @@ class ShowPage extends React.Component {
         this.setState({avgValue: 5})
       } else if (sum <= 1 && sum > 0) {
         this.setState({avgValue: 1})
-      } else if (sum = 0) {
+      } else if (sum === 0) {
         this.setState({avgValue: 0})
       } else {
         this.setState({avgValue: sum})
