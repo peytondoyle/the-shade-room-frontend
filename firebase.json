@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "theshaderoom",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

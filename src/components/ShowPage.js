@@ -11,7 +11,7 @@ class ShowPage extends React.Component {
   }}
 
   componentDidMount(){
-    fetch(`http://localhost:3000/dragqueens/${this.props.selectedQueen.id}/ratings`)
+    fetch(`https://theshaderoom-backend.herokuapp.com/dragqueens/${this.props.selectedQueen.id}/ratings`)
       .then(res => res.json())
       .then(data => {
         console.log(data)
@@ -34,7 +34,7 @@ class ShowPage extends React.Component {
     // let yourRating = this.state.yourRating
     let body = JSON.stringify({rating: value, user_id: currentUser, dragqueen_id: currentQueen})
     this.state.yourRating ?
-    fetch(`http://localhost:3000/ratings/${this.state.yourRating.id}/edit`, {
+    fetch(`https://theshaderoom-backend.herokuapp.com/ratings/${this.state.yourRating.id}/edit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ class ShowPage extends React.Component {
           console.log("patch", rating)
           this.setState({yourRating: rating})})
     :
-    fetch('http://localhost:3000/ratings', {
+    fetch('https://theshaderoom-backend.herokuapp.com/ratings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'},

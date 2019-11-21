@@ -11,7 +11,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-let DRAGURL = "http://localhost:3000/dragqueens"
+let DRAGURL = "https://theshaderoom-backend.herokuapp.com/dragqueens"
 
 
 class MainContainer extends React.Component {
