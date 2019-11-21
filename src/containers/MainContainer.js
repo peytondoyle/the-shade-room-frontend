@@ -59,7 +59,7 @@ class MainContainer extends React.Component {
   handleUserFormSubmit = (event) => {
     let name = event.target.parentElement.firstElementChild.value
     let body = JSON.stringify({user: {name: name} })
-    fetch('http://localhost:3000/users', {
+    fetch('https://theshaderoom-backend.herokuapp.com/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'},
@@ -69,7 +69,7 @@ class MainContainer extends React.Component {
       this.addNewUser(user)})}
 
   addNewUser = (user) => {
-    fetch(`http://localhost:3000/users/${user["id"]}/ratings`)
+    fetch(`https://theshaderoom-backend.herokuapp.com/users/${user["id"]}/ratings`)
     .then(res => res.json())
     .then(data => {
       this.setState({
